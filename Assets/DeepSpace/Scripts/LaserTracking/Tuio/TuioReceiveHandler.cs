@@ -39,6 +39,7 @@ namespace DeepSpace.LaserTracking
 
 		private void Update()
 		{
+			UnityEngine.Debug.Log("test");
 			// Development only: Use this, if you changed the TracklinkSettings class and want to generate a new json file based on the new class layout.
 			//if (Input.GetKeyUp(KeyCode.S))
 			//{

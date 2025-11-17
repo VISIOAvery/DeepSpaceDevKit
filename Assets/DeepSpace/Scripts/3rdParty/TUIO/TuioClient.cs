@@ -90,6 +90,7 @@ namespace TUIO
          */
         public TuioClient(int port)
         {
+            UnityEngine.Debug.Log("port:" + port);
             this.port = port;
         }
         #endregion
@@ -119,10 +120,12 @@ namespace TUIO
 
             try
             {
+                UnityEngine.Debug.Log("srating");
                 receiver = new OSCReceiver(port);
                 connected = true;
                 thread = new Thread(new ThreadStart(listen));
                 thread.Start();
+                UnityEngine.Debug.Log("srating");
             }
             catch (Exception e)
             {
@@ -163,11 +166,13 @@ namespace TUIO
 
         private void listen()
         {
+            UnityEngine.Debug.Log("listen");
             while (connected)
             {
                 try
                 {
                     OSCPacket packet = receiver.Receive();
+                    UnityEngine.Debug.Log(packet);
                     if (packet != null)
                     {
                         if (packet.IsBundle())
@@ -175,6 +180,7 @@ namespace TUIO
                             ArrayList messages = packet.Values;
                             for (int i = 0; i < messages.Count; i++)
                             {
+                                
                                 processMessage((OSCMessage)messages[i]);
                             }
                         }
@@ -195,6 +201,7 @@ namespace TUIO
 		 */
         private void processMessage(OSCMessage message)
         {
+            UnityEngine.Debug.Log(message);
             string address = message.Address;
             ArrayList args = message.Values;
             string command = (string)args[0];
